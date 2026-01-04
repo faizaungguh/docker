@@ -1,0 +1,26 @@
+version: "5.0.0"
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      # MYSQL_DATABASE: mydatabase
+      # MYSQL_USER: user
+      # MYSQL_PASSWORD: password
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    restart: always
+    healthcheck:
+      test:
+        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  mysql-data:

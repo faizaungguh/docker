@@ -1,0 +1,36 @@
+services:
+  db:
+    image: mysql:9.5.0
+    container_name: wp_mysql
+    restart: always
+    environment:
+      # Tips: Gunakan password yang kuat
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:6.9.0-php8.5-apache
+    container_name: wp_kendalisadalab
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "9000:80"
+    environment:
+      # Host harus sama dengan nama service database (yaitu 'db')
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppassword
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+
+volumes:
+  db_data:
+  wp_data:
