@@ -3,13 +3,28 @@ services:
     container_name: portainer
     image: portainer/portainer-ce:lts
     restart: always
-    ports:
-      - "9443:9443"
-      # - "8000:8000" # Edge Agent
+    expose:
+      - "9443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
 
+  caddy:
+    image: caddy:2.11-alpine
+    container_name: caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    # Menghubungkan Caddy ke Node.js Native di Fedora/WSL
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
 volumes:
   portainer_data:
-    name: portainer_data
+  caddy_data:
+  caddy_config:

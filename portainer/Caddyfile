@@ -1,0 +1,13 @@
+# Domain untuk Portainer GUI
+portainer.local {
+    reverse_proxy portainer:9443 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+# Domain untuk API Wisata (Native Node.js kamu)
+api.tourism.local {
+    reverse_proxy host.docker.internal:3000
+}
