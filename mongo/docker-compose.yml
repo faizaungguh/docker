@@ -2,7 +2,6 @@ services:
   mongodb:
     image: mongo:8.2.3-noble
     container_name: mongodb
-    restart: always
     ports:
       - "27017:27017"
     environment:
@@ -10,6 +9,14 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: rahasia
     volumes:
       - mongo-data:/data/db
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
 
 volumes:
   mongo-data:

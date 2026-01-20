@@ -1,9 +1,16 @@
 services:
   stirling-pdf:
-    image: stirlingtools/stirling-pdf:latest
+    image: stirlingtools/stirling-pdf:latest-ultra-lite
     container_name: stirling-pdf
     ports:
       - "8080:8080"
     volumes:
       - ./stirling-data:/configs
-    restart: unless-stopped
+
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
