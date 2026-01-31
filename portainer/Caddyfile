@@ -1,4 +1,0 @@
-# Domain untuk API Wisata (Native Node.js kamu)
-api.tourism.local {
-    reverse_proxy host.docker.internal:3000
-}

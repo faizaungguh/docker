@@ -1,16 +1,23 @@
 services:
   stirling-pdf:
-    image: stirlingtools/stirling-pdf:latest-ultra-lite
+    image: stirlingtools/stirling-pdf:latest
     container_name: stirling-pdf
     ports:
-      - "8080:8080"
+      - "9020:8080"
     volumes:
+      - ./stirling-data/tessdata:/usr/share/tessdata
       - ./stirling-data:/configs
+      - ./stirling-data/pipeline:/pipeline
+
+    environment:
+      - SYSTEM_DEFAULTLOCALE=en-GB
+      - SYSTEM_MAXFILESIZE=100
 
     deploy:
       resources:
         limits:
-          memory: 1024M
+          memory: 4G
+          cpus: "2.0"
         reservations:
-          cpus: "0.25"
-          memory: 128M
+          cpus: 2G
+          memory: "1.0"
