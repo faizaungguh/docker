@@ -32,3 +32,6 @@ volumes:
 ```bash
 docker run --name my-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -p 3333:3306 -d mysql:latest
 ```
+
+## hostname local 
+`C:\Windows\System32\drivers\etc\hosts`
