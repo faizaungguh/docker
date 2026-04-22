@@ -3,21 +3,13 @@ services:
     image: stirlingtools/stirling-pdf:latest
     container_name: stirling-pdf
     ports:
-      - "9020:8080"
+      - "82:8080"
     volumes:
-      - ./stirling-data/tessdata:/usr/share/tessdata
-      - ./stirling-data:/configs
-      - ./stirling-data/pipeline:/pipeline
+      - ./stirling-data/tessdata:/usr/share/tessdata  # OCR language files
+      - ./stirling-data/configs:/configs               # Settings & database
+      - ./stirling-data/logs:/logs                     # Application logs
+      - ./stirling-data/pipeline:/pipeline 
 
     environment:
       - SYSTEM_DEFAULTLOCALE=en-GB
       - SYSTEM_MAXFILESIZE=100
-
-    deploy:
-      resources:
-        limits:
-          memory: 4G
-          cpus: "2.0"
-        reservations:
-          cpus: 2G
-          memory: "1.0"
